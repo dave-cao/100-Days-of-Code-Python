@@ -1,0 +1,43 @@
+/*Variables*/
+:root {
+  text-align: center;
+}
+
+/* reset */
+* {
+  box-sizing: border-box;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+/*fonts*/
+@font-face {
+  font-family: ;
+  src: url();
+}
+
+/*base styles*/
+hr {
+  width: 30%;
+  border-style: none;
+  border-top-style: dotted;
+  border-width: 4px;
+}
+
+/*Begin (mobile-first approach)*/
+
+/*small tablet sizes*/
+@media screen and (min-width: 600px) {
+}
+
+/*Laptop sizes*/
+@media screen and (min-width: 800px) {
+}
+
+/*Desktop*/
+@media screen and (min-width: 1200px) {
+}
+
+/*Ultra-wide*/
+@media screen and (min-width: 1500px) {
+}
