@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>David's Blog Website</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="" />
+  </head>
+
+  <body>
+    <h1>Hello World</h1>
+
+    <a href="{{ url_for('get_blog', num=3) }}">Go to Blog</a>
+
+    <script src="" async defer></script>
+  </body>
+
+  <footer>
+    <p>Copyright {{ CURRENT_YEAR }}. Built by {{ MY_NAME }}</p>
+  </footer>
+</html>
