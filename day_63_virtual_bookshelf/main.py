@@ -3,7 +3,6 @@ from flask import Flask, redirect, render_template, request, url_for
 from books import Books, db
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///books.db'
 db.init_app(app)
 
 all_books = []
