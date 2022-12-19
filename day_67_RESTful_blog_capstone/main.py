@@ -1,16 +1,12 @@
 from datetime import datetime
 
-from flask import Flask, redirect, render_template, url_for
+from flask import Flask, redirect, render_template, request, url_for
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor, CKEditorField
 from flask_sqlalchemy import SQLAlchemy
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import URL, DataRequired
-
-## Delete this code:
-# import requests
-# posts = requests.get("https://api.npoint.io/43644ec4f0013682fc0d").json()
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
@@ -91,7 +87,42 @@ def new_post():
             db.session.add(new_blog)
             db.session.commit()
         return redirect(url_for("get_all_posts"))
+
     return render_template("make-post.html", form=form)
+
+
+@app.route("/edit-post/<post_id>", methods=["GET", "POST"])
+def edit_post(post_id):
+    post = BlogPost.query.get(post_id)
+    form = CreatePostForm(
+        title=post.title,
+        subtitle=post.subtitle,
+        body=post.body,
+        author=post.author,
+        img_url=post.img_url,
+    )
+
+    if form.validate_on_submit():
+        with app.app_context():
+            post = db.session.query(BlogPost).get(post_id)
+            post.title = form.title.data
+            post.subtitle = form.subtitle.data
+            post.body = form.body.data
+            post.author = form.author.data
+            post.img_url = form.img_url.data
+            db.session.commit()
+        return redirect(url_for("get_all_posts"))
+
+    return render_template("make-post.html", from_edit=True, form=form)
+
+
+@app.route("/delete/<post_id>")
+def delete(post_id):
+    with app.app_context():
+        post = db.session.query(BlogPost).get(post_id)
+        db.session.delete(post)
+        db.session.commit()
+    return redirect(url_for("get_all_posts"))
 
 
 if __name__ == "__main__":

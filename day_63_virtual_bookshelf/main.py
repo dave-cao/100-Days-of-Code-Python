@@ -3,17 +3,27 @@ from flask import Flask, redirect, render_template, request, url_for
 from books import Books, db
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///books.db"
 db.init_app(app)
 
 all_books = []
 
+
 @app.route("/")
 def home():
     global all_books
-    # Get all books in database 
+    # Get all books in database
     with app.app_context():
         all_books = db.session.query(Books).all()
-    all_books = [{"id": book.id, "title": book.title, "author": book.author, "rating": book.rating, } for book in all_books]
+    all_books = [
+        {
+            "id": book.id,
+            "title": book.title,
+            "author": book.author,
+            "rating": book.rating,
+        }
+        for book in all_books
+    ]
     return render_template("index.html", all_books=all_books)
 
 
@@ -36,7 +46,6 @@ def add():
         with app.app_context():
             db.session.add(new_book)
             db.session.commit()
-
 
         return redirect(url_for("home"))
     return render_template("add.html")

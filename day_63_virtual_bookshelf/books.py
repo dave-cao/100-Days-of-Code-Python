@@ -17,8 +17,9 @@ from flask_sqlalchemy import SQLAlchemy
 # db.commit()
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///books.db'
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///books.db"
 db = SQLAlchemy(app)
+
 
 class Books(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -28,7 +29,7 @@ class Books(db.Model):
 
     # this will allow each object to be identified by its title when printed
     def __repr__(self):
-        return '<Book %r>' % self.title
+        return "<Book %r>" % self.title
 
 
 with app.app_context():
@@ -38,12 +39,6 @@ with app.app_context():
     # db.session.add(new_book)
     # db.session.commit()
 
-
-
     # all_books = db.session.query(Books).all()
     # book = Books.query.filter_by(title="Super Powered 2").first()
     # print(book)
-
-
-
-
